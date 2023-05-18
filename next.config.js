@@ -1,5 +1,19 @@
-module.exports = {
-	// ...
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+	experimental: {
+		appDir: true,
+		serverComponentsExternalPackages: ['mongoose'],
+	},
+	images: {
+		domains: ['lh3.googleusercontent.com'],
+	},
+	webpack(config) {
+		config.experiments = {
+			...config.experiments,
+			topLevelAwait: true,
+		};
+		return config;
+	},
 	webpackDevMiddleware: (config) => {
 		config.watchOptions = {
 			poll: 1000, // Check for changes every second
@@ -7,5 +21,6 @@ module.exports = {
 		};
 		return config;
 	},
-	// ...
 };
+
+module.exports = nextConfig;
