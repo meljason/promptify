@@ -27,6 +27,11 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 			);
 		}
 	};
+
+	const handleEditPost = () => {
+		router.push(`/update-prompt?id=${post._id}`);
+	};
+
 	return (
 		<div className='prompt_card'>
 			<div className='flex justify-between items-start gap-5'>
@@ -51,22 +56,35 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 						</p>
 					</div>
 				</div>
-				<div
-					className='copy_btn'
-					onClick={() => {
-						handleCopy();
-					}}
-				>
-					<Image
-						src={
-							copy === post.prompt
-								? '/assets/icons/tick.svg'
-								: '/assets/icons/copy.svg'
-						}
-						width={12}
-						height={12}
-						alt='copy'
-					/>
+
+				<div className='flex'>
+					{session.user.id === post.creator._id && (
+						<div
+							className='blue_gradient font-satoshi cursor-pointer self-center mr-3'
+							onClick={() => {
+								handleEditPost();
+							}}
+						>
+							Edit
+						</div>
+					)}
+					<div
+						className='copy_btn'
+						onClick={() => {
+							handleCopy();
+						}}
+					>
+						<Image
+							src={
+								copy === post.prompt
+									? '/assets/icons/tick.svg'
+									: '/assets/icons/copy.svg'
+							}
+							width={12}
+							height={12}
+							alt='copy'
+						/>
+					</div>
 				</div>
 			</div>
 
